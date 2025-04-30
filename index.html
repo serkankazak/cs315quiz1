@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><body><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<input id="b" type="button" value="Start"><br><br><textarea id="f" rows="20"></textarea><br><textarea id="t" rows="20"></textarea><script>
+
+var i;
+$("#b").bind("click", function() {
+  if ($("#b").val() != "Start") {$("#b").val("Start");} else {
+		$("#b").val("Stop");
+		$("textarea").text("");
+		i = 0;
+		(function doo() {
+			var x = (i.toString(2).length > 1) ? i.toString(2).substring(1) : i.toString(2);
+			var x1 = ((x.match(/01/g) || []).length == (x.match(/10/g) || []).length) ? 1 : 0;
+			var x2 = x.match(/(0+1+(0+1+)*0+)|(1+0+(1+0+)*1+)/);
+			if (x1 != (x2 ? (x2.indexOf(x) != -1 ? 1 : 0) : 0)) {$("#f").text(x + "\n" + $("#f").text());}
+			$("#t").text(x + "\n" + $("#t").text());
+			if ($("#b").val() != "Start") {setTimeout(doo, 1); $("#b").val("Stop (" + ++i + " : " + x + ")");}
+    })();
+	}
+});
+
+</script></body></html>
